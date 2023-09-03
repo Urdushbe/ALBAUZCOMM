@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Ma'lumotlarni o'zgartirish{% endblock title %}
+
+{% block content %}
+    <div class="list-group marginuz">
+        <div class="list-group-item bg-detail text-dark">
+            <form method="post">{% csrf_token %}
+
+                <label class="form-label" for="id_username">Login</label>
+                <input class="form-control inputuz" type="text" name="username" value="{{ user.username }}"
+                       maxlength="150" required id="id_username">
+                <br>
+                <label class="form-label" for="id_last_name">Familiyangiz</label>
+                <input class="form-control inputuz" type="text" name="last_name" value="{{ user.last_name }}" maxlength="150"
+                       id="id_last_name">
+                <br>
+                <label class="form-label" for="id_first_name">Ismingiz</label>
+                <input class="form-control inputuz" type="text" name="first_name" value="{{ user.first_name }}"
+                       maxlength="150" id="id_first_name">
+                <br>
+                <label class="form-label" for="id_email">Email</label>
+                <input class="form-control inputuz" type="email" name="email" value="{{ user.email }}" maxlength="254"
+                       id="id_email">
+                <br>
+                <label class="form-label" for="id_phone_number">Telefon</label>
+                <input class="form-control inputuz" type="text" name="phone_number" value="{{ user.phone_number }}" maxlength="20"
+                       required
+                       id="id_phone_number">
+                <br>
+                <label class="form-label" for="id_telegram">BIO</label>
+                <input class="form-control inputuz" type="text" name="telegram" value="{{ user.telegram }}" maxlength="500"
+                       id="id_telegram">
+                <br>
+                <button class="btn btn-primary" type="submit">O'zgartirish</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Ro'yxatdan o'tish{% endblock title %}
+
+{% block content %}
+    <div class="list-group marginuz">
+        <div class="list-group-item bg-detail text-dark">
+            <form method="post">{% csrf_token %}
+                {% if form.errors %}
+                    <div class="alert alert-danger mt-3">
+                        <ul>
+                            {% for field in form %}
+                                {% if field.errors %}
+                                    {% for error in field.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+
+                        <label class="form-label" for="id_username">Login</label>
+                        <input class="form-control inputuz" type="text" name="username" maxlength="150" autofocus required id="id_username">
+                        <br>
+                        <label class="form-label" for="id_last_name">Familiyangiz</label>
+                        <input class="form-control inputuz" type="text" name="last_name" maxlength="150" id="id_last_name">
+                        <br>
+                        <label class="form-label" for="id_first_name">Ismingiz</label>
+                        <input class="form-control inputuz" type="text" name="first_name" maxlength="150" id="id_first_name">
+                        <br>
+                        <label class="form-label" for="id_email">Email</label>
+                        <input class="form-control inputuz" type="email" name="email" maxlength="254" id="id_email">
+                        <br>
+                        <label class="form-label" for="id_phone_number">Telefon raqam</label>
+                        <input class="form-control inputuz" type="text" name="phone_number" maxlength="20" required id="id_phone_number">
+                        <br>
+                        <label class="form-label" for="id_password1">Parol</label>
+                        <input class="form-control inputuz" type="password" name="password1" autocomplete="new-password" required id="id_password1">
+                        <br>
+                        <label class="form-label" for="id_password2">Parolni qaytadan kiriting</label>
+                        <input class="form-control inputuz" type="password" name="password2" autocomplete="new-password" required id="id_password2">
+                        <br>
+
+                <button class="btn btn-primary" type="submit">Ro'yxatdan o'tish</button>
+                </form>
+        </div>
+    </div>
+{% endblock content %}

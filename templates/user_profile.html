@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}{{ user_profile.username }} | Profile{% endblock title %}
+{% block content %}
+
+
+    <!-- for user -->
+{% if user.username == user_profile.username %}
+    <div class="list-group marginuz">
+        <div class="list-group-item bg-detail text-dark">
+            <h3>Salom {{ user.last_name }} {{ user.first_name }}!</h3>
+            <p>Login: {{ user_profile.username }}</p>
+            <p>Email: {{ user_profile.email }}</p>
+            <p>Telefon: {{ user_profile.phone_number }}</p>
+            <p>Bio: {{ user_profile.telegram }}</p>
+        </div>
+    </div>
+
+        <div class="list-group marginuz">
+        <div class="list-group-item bg-detail text-dark">
+            <p><a href="{% url 'user_job_list' user_profile.username %}">Mening e'lonlarim</a></p><hr>
+            <p><a href="{% url 'user_profile_update' user.pk %}">Ma'lumotlarni o'zgartirish</a></p>
+            <p><a href="{% url 'password_change' %}">Parolni o'zgartirish</a></p>
+            <p><a href="{% url 'logout' %}" class="text-danger">Chiqib ketish</a></p>
+        </div>
+    </div>
+
+{% else %}
+    <!-- for not user -->
+    <div class="list-group marginuz">
+        <div class="list-group-item bg-detail text-dark">
+            <h5>                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="16" height="16" fill="currentColor"
+                     class="bi bi-person-fill"
+                     viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
+                </svg> {{ user_profile.username }}</h5>
+            <hr>
+            <p>Ismi: {{ user_profile.last_name }} {{ user_profile.first_name }}</p>
+            <p>Telefon: {{ user_profile.phone_number }}</p>
+            <p>Bio: {{ user_profile.telegram }}</p>
+            <a href="{% url 'user_job_list' user_profile.username %}">Foydalanuvchi joylagan e'lonlar</a><br>
+
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

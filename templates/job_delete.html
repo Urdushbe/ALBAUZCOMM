@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}O'chirish{% endblock title %}
+
+{% block content %}
+    <div class="list-group marginuz">
+        <div class="list-group-item bg-detail text-dark">
+            <form method="post">{% csrf_token %}
+                <h5>{{ object.name }}</h5>
+                <hr>
+                Haqiqatdan ham ushbu e'lonni o'chirmoqchimisiz?<br><br>
+                <button class="btn btn-primary" type="submit">O'chirish</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

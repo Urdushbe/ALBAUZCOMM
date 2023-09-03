@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Saytga kirish{% endblock title %}
+
+{% block content %}
+    <div class="list-group marginuz">
+        <div class="list-group-item bg-detail text-dark">
+            {% if form.errors %}
+                <div class="alert alert-danger mt-3">
+                    Login yoki parol xato! Itimos tekshirib qaytadan kirishni amalga oshiring.
+                </div>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <label for="id_name" class="form-label">Login</label>
+                <input class="form-control" type="text" id="id_name" name="username" required>
+                <br>
+                <label for="id_name" class="form-label">Parol</label>
+                <input class="form-control" type="password" id="id_name" name="password" required><br>
+                <button type="submit" class="btn btn-primary">Kirish</button>
+                <br><br><a href="{% url 'registration' %}">Ro'yxatdan o'tish</a> | <a href="{% url 'password_reset' %}">Parol esdan chiqdimi?</a>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
+
+<style>
+    /* Kirish formasi qatorlari orasidagi bo'shliqni o'chirish */
+    form p {
+        margin: 0;
+    }
+</style>

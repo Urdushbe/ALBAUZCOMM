@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}O'zgartirish{% endblock title %}
+
+{% block content %}
+    <h1>Postni o'zgartirish</h1>
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">O'zgartirish</button>
+    </form>
+{% endblock content %}

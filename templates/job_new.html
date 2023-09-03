@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %}Saytga ish joylash{% endblock title %}
+
+
+{% block content %}
+    <div class="list-group marginuz">
+        <div class="list-group-item bg-detail text-dark">
+            {% if form.errors %}
+                <div class="alert alert-danger mt-3">
+                    <ul>
+                        {% for field in form %}
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <label for="id_name" class="form-label">Ish nomi</label>
+                <input class="form-control inputuz" type="text" id="id_name" name="name">
+                <br>
+                <label class="form-label" for="id_salary">To'lanadigan haq (won)</label><br>
+                <select class="form-select inputuz" name="salary_period" id="id_salary_period">
+                    <option value="monthly">Oylik</option>
+                    <option value="weekly">Haftalik</option>
+                    <option value="daily">Kunlik</option>
+                    <option value="hourly">Soatlik</option>
+                </select><br>
+                <input class="form-control inputuz" placeholder="170.000" type="text" id="id_salary" name="salary">
+                <br>
+                <label class="form-label" for="id_start_time">Boshlash vaqti</label>
+                <input class="form-control inputuz" type="time" id="id_start_time" name="start_time" value="08:00">
+                <br>
+                <label class="form-label" for="id_end_time">Tugash vaqti</label>
+                <input class="form-control inputuz" type="time" id="id_end_time" name="end_time" value="18:00">
+                <br>
+                <label class="form-label" for="id_phone_number">Telefon raqam</label>
+                <input class="form-control inputuz" type="text" id="id_phone_number" value="{{ user.phone_number }}"
+                       name="phone_number">
+                <br>
+                <label class="form-label" for="id_address">Manzil</label>
+                <input class="form-control inputuz" type="text" id="id_address" name="address">
+                <br>
+                <label class="form-label " for="id_region">Viloyat</label>
+                <select class="form-select inputuz" aria-label="Default" id="id_region" name="region">
+                    <option value="">----------</option>
+                    {% for region in regions %}
+                        <option value="{{ region.pk }}">{{ region.name }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label class="form-label" for="id_city">Shahar</label>
+                <select class="form-select inputuz" aria-label="Default" id="id_city" name="city">
+                    <option value="">----------</option>
+                </select>
+                <br>
+                <label class="form-label" for="id_description">Ish haqida qo'shimcha ma'lumotlar</label><br>
+                <textarea class="form-control" style="width: 300px; height: 200px;" id="id_description"
+                          name="description"></textarea>
+                <br>
+                <button class="btn btn-primary" type="submit">Joylash</button>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#id_region').change(function () {
+                var regionId = $(this).val();
+                if (regionId) {
+                    $.ajax({
+                        url: '/city_id/' + regionId + '/',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            var citySelect = $('#id_city');
+                            citySelect.empty();
+                            if (data.length > 0) {
+                                $.each(data, function (key, value) {
+                                    citySelect.append('<option value="' + value.id + '">' + value.name + '</option>');
+                                });
+                            } else {
+                                citySelect.append('<option value="">----------</option>');
+                            }
+                        }
+                    });
+                } else {
+                    $('#id_city').empty();
+                }
+            });
+        });
+    </script>
+
+
+
+{% endblock %}
